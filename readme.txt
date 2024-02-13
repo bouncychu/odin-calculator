@@ -1,0 +1,1 @@
+This is a project for the Odin Project to create a web-based calculator
