@@ -1,13 +1,15 @@
 /* CSS Stylesheet for calculator */
 
 body {
-    font-family: 'Courier New', Courier, monospace;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bolder;
   }
 
   .calculator-container{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 30px;
   }
 
   .screen{
@@ -15,50 +17,82 @@ body {
     border-color: black;
     border-width: 2px;
     border-style: solid;
-    background-color: grey;
-    color: black;
-    text-align: right;
+    background-color: #FDEB4C;
+    color: #406F43;
     width: 200px;
     height:40px;
-    display: flex;
+    display: block;
     align-items:center;
-    justify-content: end;
+    justify-content: center;
     border-radius:8px;
+    word-wrap: break-word;
   }
 
   .calculator-container {
     display: flex;
     flex-direction: column;
-    gap: 1px;
+    gap: 2px;
+    background-color: #8E24AA;
+    width:220px;
+    padding:20px;
+    height: 300px;
+    margin: auto;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;
   }
   
   .button-row, .screen {
     display: flex;
-    justify-content: center;
-    gap: 1px;
+    gap: 2px;
   }
 
   .number, .operator, .special {
     color: black;
-    border-color: grey;
+    border-color: black;
     border-radius: 8px;
     border-width: 2px;
   }
 
   .number {
-    background-color:antiquewhite;
+    background-color: #B25FC0;
+    color: #FFEB3B;
   }
 
   .operator {
-    background-color: goldenrod;
+    background-color: #406F43;
+    color: azure;
   }
 
   .special {
-    background-color: greenyellow;
+    background-color: #E63471;
+    color: azure;
   }
 
  button {
   width: 50px;
   height: 50px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bolder;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #B25FC0;
+
  }
-  
+
+ #equals {
+  width: 100px;
+    background-color: #34b4e6;
+    color: black;
+ }
+
+ #equals:hover {
+  background-color:antiquewhite;
+  color: #34b4e6;
+ }
+
+ button:hover {
+  background-color: black;
+  color:antiquewhite;
+ }

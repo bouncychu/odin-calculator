@@ -29,7 +29,7 @@ You should be storing the ‘display value’ in a variable somewhere for use in
 // Initialisation of variables that will be used to hold data and update data
 let screenDisplay = document.querySelector(".screen"); 
 let displayNumber = 'NA';
-let firstInputNumber;
+let firstInputNumber = 'NA';
 let secondInputNumber;
 let calculationResultNumber = 'NA';
 let firstCalculationDone = false;
@@ -39,6 +39,46 @@ let operatorClickCount = 0;
 document.addEventListener("click", function(event) {
     // check which button  was clicked using the event.target.id property
     switch (event.target.id) {
+        case "back":
+        if (calculationResultNumber !== 'NA' && displayNumber === 'NA') {
+            displayNumber = screenDisplay.textContent;
+            displayNumber = displayNumber.toString();
+            displayNumber = displayNumber.slice(0, -1);
+            screenDisplay.textContent = displayNumber;
+            break;        
+        }
+        if (displayNumber == 'NA') {
+            break;
+        }
+        else {
+            displayNumber = displayNumber.toString();
+            displayNumber = displayNumber.slice(0, -1);
+            screenDisplay.textContent = displayNumber;
+        }
+        break;
+        case "dot":
+        if (displayNumber === 'NA' && firstInputNumber == 'NA') {
+            displayNumber = ".";
+            screenDisplay.textContent = displayNumber;
+        }
+        else if (firstInputNumber !== "NA" && includesDecimal(displayNumber) == false) {
+            displayNumber = firstInputNumber + ".";
+            screenDisplay.textContent = displayNumber;
+            break;
+        }
+        else if (firstInputNumber !== "NA" && includesDecimal(firstInputNumber) == false) {
+            displayNumber = firstInputNumber + ".";
+            screenDisplay.textContent = displayNumber;
+            break;
+        }
+        else if (includesDecimal(displayNumber) == true) {
+            break;
+        }
+        else {
+            displayNumber = displayNumber + ".";
+            screenDisplay.textContent = displayNumber;
+        }
+        break;
         //AC button to clear all variables
         case "clear":
             operatorClickCount = 0;
@@ -55,7 +95,7 @@ document.addEventListener("click", function(event) {
                 screenDisplay.textContent = displayNumber;
             }
             else {
-                displayNumber = displayNumber + "1";
+                displayNumber = Number(displayNumber + "1");
                 screenDisplay.textContent = displayNumber;
                 
             }
@@ -67,7 +107,7 @@ document.addEventListener("click", function(event) {
                 
             }
             else {
-                displayNumber = displayNumber + "2";
+                displayNumber = Number(displayNumber + "2");
                 screenDisplay.textContent = displayNumber;
                 
             }
@@ -79,7 +119,7 @@ document.addEventListener("click", function(event) {
                 
             }
             else {
-                displayNumber = displayNumber + "3";
+                displayNumber = Number(displayNumber + "3");
                 screenDisplay.textContent = displayNumber;
                 
             }
@@ -91,7 +131,7 @@ document.addEventListener("click", function(event) {
                 
             }
             else {
-                displayNumber = displayNumber + "4";
+                displayNumber = Number(displayNumber + "4");
                 screenDisplay.textContent = displayNumber;
                 
             }
@@ -102,7 +142,7 @@ document.addEventListener("click", function(event) {
                 screenDisplay.textContent = displayNumber;
             }
             else {
-                displayNumber = displayNumber + "5";
+                displayNumber = Number(displayNumber + "5");
                 screenDisplay.textContent = displayNumber;
             }
             break;
@@ -112,7 +152,7 @@ document.addEventListener("click", function(event) {
                 screenDisplay.textContent = displayNumber;
             }
             else {
-                displayNumber = displayNumber + "6";
+                displayNumber = Number(displayNumber + "6");
                 screenDisplay.textContent = displayNumber;
             }
             break;
@@ -132,7 +172,7 @@ document.addEventListener("click", function(event) {
                 screenDisplay.textContent = displayNumber;
             }
             else {
-                displayNumber = displayNumber + "8";
+                displayNumber = Number(displayNumber + "8");
                 screenDisplay.textContent = displayNumber;
             }
             break;
@@ -142,7 +182,7 @@ document.addEventListener("click", function(event) {
                 screenDisplay.textContent = displayNumber;
             }
             else {
-                displayNumber = displayNumber + "9";
+                displayNumber = Number(displayNumber + "9");
                 screenDisplay.textContent = displayNumber;
             }
             break;
@@ -152,7 +192,7 @@ document.addEventListener("click", function(event) {
                 screenDisplay.textContent = displayNumber;
             }
             else {
-                displayNumber = displayNumber + "0";
+                displayNumber = Number(displayNumber + "0");
                 screenDisplay.textContent = displayNumber;
             }
             break;
@@ -219,10 +259,10 @@ document.addEventListener("click", function(event) {
 // it will re-set the operatorClickCount to 0
 let calculate = function() {
     secondInputNumber = Number(displayNumber);
-    console.log("first: ", firstInputNumber, "second: ", secondInputNumber, "display: ", displayNumber);
     screenDisplay.textContent = operate(firstInputNumber, selectedOperator, secondInputNumber);
     calculationResultNumber = operate(firstInputNumber, selectedOperator, secondInputNumber);
     firstInputNumber = calculationResultNumber;
+    console.log("first: ", firstInputNumber, "second: ", secondInputNumber, "display: ", displayNumber);
     displayNumber = 'NA';
     operatorClickCount = 0;
 }
@@ -237,3 +277,13 @@ let calculateByOperator = function() {
     firstInputNumber = calculationResultNumber;
     displayNumber = 'NA';
 }
+
+function includesDecimal(n)
+{
+   var result = (n - Math.floor(n)) !== 0; 
+   
+  if (result)
+    return true;
+   else
+     return false;
+  }
