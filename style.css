@@ -4,46 +4,61 @@ body {
     font-family: 'Courier New', Courier, monospace;
   }
 
+  .calculator-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .screen{
+    border: 3px;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    background-color: grey;
+    color: black;
+    text-align: right;
+    width: 200px;
+    height:40px;
+    display: flex;
+    align-items:center;
+    justify-content: end;
+    border-radius:8px;
+  }
+
   .calculator-container {
     display: flex;
     flex-direction: column;
+    gap: 1px;
   }
   
-  .button-row {
+  .button-row, .screen {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 1px;
   }
 
-  img {
-    width: 100px;
-    height: 100px;
-    display: flex;
+  .number, .operator, .special {
+    color: black;
+    border-color: grey;
+    border-radius: 8px;
+    border-width: 2px;
   }
-  
-  .text {
-    display: flex;
+
+  .number {
+    background-color:antiquewhite;
   }
-  
-  .title {
-    font-size: 36px;
-    font-weight: 900;
-    display: flex;
-    justify-content: center;
-    margin: 32px;
+
+  .operator {
+    background-color: goldenrod;
   }
-  
-  .card {
-    display: flex;
-    flex-direction: column;
-    max-width: 200px;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
+
+  .special {
+    background-color: greenyellow;
   }
-  
-  .information {
-    display: flex;
-    justify-content: center;
-    gap: 52px;
-  }
+
+ button {
+  width: 50px;
+  height: 50px;
+ }
   
