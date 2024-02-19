@@ -36,16 +36,17 @@ let selectedOperator = 'NA';
 let operatorClickCount = 0;
 let decimalClick = 0;
 
+//Set up switch board for buttons on calculator
 document.addEventListener("click", function(event) {
     // check which button  was clicked using the event.target.id property
     switch (event.target.id) {
         case "percent":
             if (Number(screenDisplay.textContent) == NaN) {
-                console.log("display number is NA");
                 break;
             }
             else {
                 displayNumber = Number(screenDisplay.textContent/100);
+                screenDisplay.textContent = Math.round(displayNumber * 100000000) / 100000000;
                 screenDisplay.textContent = displayNumber;
             }
             break;
@@ -350,3 +351,62 @@ function includesDecimal(n)
      return false;
   }
 
+//Listens on document for keystrokes and clicks corresponding buttons on webpage
+document.onkeydown = function(event) {
+        if (event.key == 0) {
+            document.getElementById("zero").click();
+        }
+        else if (event.key == 1) {
+            document.getElementById("one").click();
+        }
+        else if (event.key == 2) {
+            document.getElementById("two").click();
+        }
+        else if (event.key == 3) {
+            document.getElementById("three").click();
+        }
+        else if (event.key == 4) {
+            document.getElementById("four").click();
+        }
+        else if (event.key == 5) {
+            document.getElementById("five").click();
+        }
+        else if (event.key == 6) {
+            document.getElementById("six").click();
+        }
+        else if (event.key == 7) {
+            document.getElementById("seven").click();
+        }
+        else if (event.key == 8) {
+            document.getElementById("eight").click();
+        }
+        else if (event.key == 9) {
+            document.getElementById("nine").click();
+        }
+        else if (event.key == "/") {
+            document.getElementById("divide").click();
+        }
+        else if (event.key == ".") {
+            document.getElementById("dot").click();
+        }
+        else if (event.key == "*") {
+            document.getElementById("times").click();
+        }
+        else if (event.key == "+") {
+            document.getElementById("plus").click();
+        }
+        else if (event.key == "-") {
+            document.getElementById("minus").click();
+        }
+        else if (event.key == "Backspace") {
+            console.log("backspace");
+            document.querySelector("#back").click();
+        }
+        else if (event.key == "Enter") {
+            console.log("enter");
+            document.querySelector("#equals").click();
+        }
+        else if (event.key == "%") {
+            document.querySelector("#percent").click();
+        }
+    };
