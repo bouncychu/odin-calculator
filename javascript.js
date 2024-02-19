@@ -1,6 +1,5 @@
 //javascript for odin project calculator
 
-
 //Functions for add, subtract, multiply and divide
 let add = (numberA, numberB) => numberA + numberB;
 let subtract = (numberA, numberB) => numberA - numberB;
@@ -33,12 +32,23 @@ let firstInputNumber = 'NA';
 let secondInputNumber;
 let calculationResultNumber = 'NA';
 let firstCalculationDone = false;
-let selectedOperator;
+let selectedOperator = 'NA';
 let operatorClickCount = 0;
+let decimalClick = 0;
 
 document.addEventListener("click", function(event) {
     // check which button  was clicked using the event.target.id property
     switch (event.target.id) {
+        case "percent":
+            if (Number(screenDisplay.textContent) == NaN) {
+                console.log("display number is NA");
+                break;
+            }
+            else {
+                displayNumber = Number(screenDisplay.textContent/100);
+                screenDisplay.textContent = displayNumber;
+            }
+            break;
         case "back":
         if (calculationResultNumber !== 'NA' && displayNumber === 'NA') {
             displayNumber = screenDisplay.textContent;
@@ -57,18 +67,13 @@ document.addEventListener("click", function(event) {
         }
         break;
         case "dot":
-        if (displayNumber === 'NA' && firstInputNumber == 'NA') {
+            decimalClick++;
+        if (displayNumber === 'NA') {
             displayNumber = ".";
-            screenDisplay.textContent = displayNumber;
-        }
-        else if (firstInputNumber !== "NA" && includesDecimal(displayNumber) == false) {
-            displayNumber = firstInputNumber + ".";
             screenDisplay.textContent = displayNumber;
             break;
         }
-        else if (firstInputNumber !== "NA" && includesDecimal(firstInputNumber) == false) {
-            displayNumber = firstInputNumber + ".";
-            screenDisplay.textContent = displayNumber;
+        else if (decimalClick > 1) {
             break;
         }
         else if (includesDecimal(displayNumber) == true) {
@@ -87,6 +92,7 @@ document.addEventListener("click", function(event) {
             secondInputNumber = 'NA';
             calculationResultNumber = 'NA';
             screenDisplay.textContent= '';
+            decimalClick = 0;
         break;
         // clicking numbers 0 to 1 will update display number on screen and save as variabl displayNumber
         case "one":
@@ -199,6 +205,8 @@ document.addEventListener("click", function(event) {
         /* Clicking Operators will select operator, save display Number as first input number if
         not intialised yet. If operator button is clicked in lieu of equals, it will make a calculation*/
         case "plus":
+            if (displayNumber == 'NA' && firstInputNumber == 'NA') {break}
+            decimalClick = 0;
             operatorClickCount++
             if (operatorClickCount == 1) {firstInputNumber = Number(screenDisplay.textContent)}
             else if (operatorClickCount > 1){
@@ -211,6 +219,8 @@ document.addEventListener("click", function(event) {
             displayNumber = 'NA';
             break;
         case "minus":
+            if (displayNumber == 'NA' && firstInputNumber == 'NA') {break}
+            decimalClick = 0;
             operatorClickCount++
             if (operatorClickCount == 1) {firstInputNumber = Number(screenDisplay.textContent)}
             else if (operatorClickCount > 1){
@@ -223,6 +233,8 @@ document.addEventListener("click", function(event) {
             displayNumber = 'NA';
             break;
         case "times":
+            if (displayNumber == 'NA' && firstInputNumber == 'NA') {break}
+            decimalClick = 0;
             operatorClickCount++
             if (operatorClickCount == 1) {firstInputNumber = Number(screenDisplay.textContent)}
             else if (operatorClickCount > 1){
@@ -235,6 +247,8 @@ document.addEventListener("click", function(event) {
             displayNumber = 'NA';
             break;
         case "divide":
+            if (displayNumber == 'NA' && firstInputNumber == 'NA') {break}
+            decimalClick = 0;
             operatorClickCount++
             if (operatorClickCount == 1) {firstInputNumber = Number(screenDisplay.textContent)}
             else if (operatorClickCount > 1){
@@ -247,6 +261,7 @@ document.addEventListener("click", function(event) {
             displayNumber = 'NA';
             break;
         case "equals":
+            decimalClick = 0;
             calculate();
             break;
       default:
@@ -258,8 +273,31 @@ document.addEventListener("click", function(event) {
 // calculate function will take in 2 numbers and an operator and complete a calculation.
 // it will re-set the operatorClickCount to 0
 let calculate = function() {
+    if (firstInputNumber == 0 && displayNumber == 0 && selectedOperator == divide) {
+        screenDisplay.textContent = "ERROR!!";
+        operatorClickCount = 0;
+        displayNumber = 'NA';
+        firstInputNumber = 'NA';
+        secondInputNumber = 'NA';
+        calculationResultNumber = 'NA';
+        decimalClick = 0;
+        selectedOperator = 'NA';
+        return false;
+    }
+    else if (firstInputNumber == 'NA' || displayNumber == 'NA') {
+        screenDisplay.textContent = "ERROR!!";
+        operatorClickCount = 0;
+        displayNumber = 'NA';
+        firstInputNumber = 'NA';
+        secondInputNumber = 'NA';
+        calculationResultNumber = 'NA';
+        selectedOperator = 'NA';
+        decimalClick = 0;
+        return false;
+    }
     secondInputNumber = Number(displayNumber);
     screenDisplay.textContent = operate(firstInputNumber, selectedOperator, secondInputNumber);
+    screenDisplay.textContent = Math.round(screenDisplay.textContent * 100000000) / 100000000;
     calculationResultNumber = operate(firstInputNumber, selectedOperator, secondInputNumber);
     firstInputNumber = calculationResultNumber;
     console.log("first: ", firstInputNumber, "second: ", secondInputNumber, "display: ", displayNumber);
@@ -270,14 +308,38 @@ let calculate = function() {
 // unlike the calculate function, this will not re-set the operatorClickCount
 // this allows for button inputs such as 12 + 7 - 5 * 3 = 42
 let calculateByOperator = function() {
+    if (firstInputNumber == 0 && displayNumber == 0 && selectedOperator == divide) {
+        screenDisplay.textContent = "ERROR!!";
+        operatorClickCount = 0;
+        displayNumber = 'NA';
+        firstInputNumber = 'NA';
+        secondInputNumber = 'NA';
+        calculationResultNumber = 'NA';
+        decimalClick = 0;
+        selectedOperator = 'NA';
+        return false;
+    }
+    else if (firstInputNumber == 'NA' || displayNumber == 'NA') {
+        screenDisplay.textContent = "ERROR!!";
+        operatorClickCount = 0;
+        displayNumber = 'NA';
+        firstInputNumber = 'NA';
+        secondInputNumber = 'NA';
+        calculationResultNumber = 'NA';
+        decimalClick = 0;
+        selectedOperator = 'NA';
+        return false;
+    }
     secondInputNumber = Number(displayNumber);
     console.log("first: ", firstInputNumber, "second: ", secondInputNumber, "display: ", displayNumber);
     screenDisplay.textContent = operate(firstInputNumber, selectedOperator, secondInputNumber);
+    screenDisplay.textContent = Math.round(screenDisplay.textContent * 100000000) / 100000000;
     calculationResultNumber = operate(firstInputNumber, selectedOperator, secondInputNumber);
     firstInputNumber = calculationResultNumber;
     displayNumber = 'NA';
 }
 
+// Determines whether number has a decimal, used in decimal button to prevent 2 decimals in one number
 function includesDecimal(n)
 {
    var result = (n - Math.floor(n)) !== 0; 
@@ -287,3 +349,4 @@ function includesDecimal(n)
    else
      return false;
   }
+
