@@ -70,7 +70,7 @@ document.addEventListener("click", function(event) {
         case "dot":
             decimalClick++;
         if (displayNumber === 'NA') {
-            displayNumber = ".";
+            displayNumber = "0.";
             screenDisplay.textContent = displayNumber;
             break;
         }
@@ -199,7 +199,7 @@ document.addEventListener("click", function(event) {
                 screenDisplay.textContent = displayNumber;
             }
             else {
-                displayNumber = Number(displayNumber + "0");
+                displayNumber = displayNumber + "0";
                 screenDisplay.textContent = displayNumber;
             }
             break;
